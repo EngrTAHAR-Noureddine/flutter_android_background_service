@@ -28,13 +28,13 @@ public class testservice extends Service {
     public int onStartCommand(Intent intent, int flags, int startId) {
 
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-            NotificationChannel channel = new NotificationChannel("101", "foreground", NotificationManager.IMPORTANCE_DEFAULT);
+            NotificationChannel channel = new NotificationChannel("101", "foreground", NotificationManager.IMPORTANCE_HIGH);
             NotificationManager manager = getSystemService(NotificationManager.class);
             manager.createNotificationChannel(channel);
         }
 
         Intent notifcationIntent = new Intent(this, MainActivity.class);
-        PendingIntent pi = PendingIntent.getActivity(this, 0, notifcationIntent, 0);
+        PendingIntent pi = PendingIntent.getActivity(this, 0, notifcationIntent, PendingIntent.FLAG_IMMUTABLE);
 
         Notification notification = new NotificationCompat.Builder(this, "101").setContentTitle("foreground service").setContentText("This is content").setSmallIcon(R.drawable.launch_background).setContentIntent(pi).build();
 
